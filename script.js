@@ -1,8 +1,6 @@
 const qs = (element) => document.querySelector(element);
 const qsa = (element) => document.querySelectorAll(element);
 
-// Initial Data
-
 const square = {
   a1: "",
   a2: "",
@@ -20,8 +18,6 @@ let playing = false;
 let oPoints = 0,
   xPoints = 0;
 
-// Events
-
 qsa(".item").forEach((element) => {
   element.addEventListener("click", () => {
     const dataItem = element.getAttribute("data-item");
@@ -30,8 +26,6 @@ qsa(".item").forEach((element) => {
 });
 
 qs(".reset").addEventListener("click", reset);
-
-// Functions
 
 function itemClick(data) {
   if (square[data] === "" && playing) {
@@ -48,13 +42,11 @@ function itemClick(data) {
 function checkGame() {
   if (checkWinnerFor("X")) {
     result = '"X" Wins!';
-    xPoints++;
-    qs(".x-points").innerHTML = `${xPoints}`;
+    qs(".x-points").innerHTML = `${++xPoints}`;
     playing = false;
   } else if (checkWinnerFor("O")) {
     result = '"O" Wins!';
-    oPoints++;
-    qs(".o-points").innerHTML = `${oPoints}`;
+    qs(".o-points").innerHTML = `${++oPoints}`;
     playing = false;
   } else if (squareIsFull()) {
     result = "Draw!";
@@ -78,18 +70,6 @@ function checkWinnerFor(player) {
 
   for (let item of pos) {
     const pArray = item.split(",");
-    /**
-     * O método every verifica num vetor se a proposição
-     * bate. Nesse caso, ele irá percorrer o array criado
-     * pelo método split (por exemplo, [a1,a2,a3]), irá
-     * colocar esses valores do array, através do arg
-     * 'option', como uma propriedade do obj 'square' para
-     * que, entrando nessa propriedade do objeto,
-     * verifique se o valor dela é igual ao valor 'player'
-     * passado como parâmetro da função referente a esse
-     * escopo. Caso todos os valores batam, retorna true.
-     * Se somente um valor não bater, retorna false.
-     */
     const match = pArray.every((option) => square[option] === player);
     if (match) return true;
   }
